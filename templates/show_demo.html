@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-6  col-12">
-            <h2> 25 stable {{type}} Materials </h2>
+            <h2> 25 stable {{type |safe}} Materials </h2>
         </div>
         <div class="col-sm-2  col-12">
             <a class="btn btn-primary" href="{% url 'home' %}">Back to Home</a>
@@ -47,9 +47,9 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{mat.file_path}}</td>
-                <td>{{mat.formula}}</td>
+                <td>{{mat.formula |safe}}</td>
                 <td>{{mat.spacegroup.symbol}}</td>
-                <td>{{mat.generic}}</td>
+                <td>{{mat.generic |safe}}</td>
                 <td>{{mat.formation_energy}}</td>
                 <td>{{mat.nelement}}</td>
                 <td>{{mat.natom}}</td>

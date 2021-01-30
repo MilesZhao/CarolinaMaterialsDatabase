@@ -47,9 +47,9 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>{{mat.file_path}}</td>
-                <td>{{mat.formula}}</td>
+                <td>{{mat.formula |safe}}</td>
                 <td>{{mat.spacegroup.symbol}}</td>
-                <td>{{mat.generic}}</td>
+                <td>{{mat.generic |safe}}</td>
                 <td>{{mat.formation_energy}}</td>
                 <td>{{mat.nelement}}</td>
                 <td>{{mat.natom}}</td>

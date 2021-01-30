@@ -1,3 +1,4 @@
+import re,collections
 from django.shortcuts import render,get_object_or_404
 from .models import Entry, Spacegroup
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -79,6 +80,43 @@ def eval_cookie(cookie):
         d[k] = eval(cookie[k])
     return d
 
+def sub_formula(d):
+    s = ''
+    for k in d:
+        if int(d[k]) == 1:
+            s += str(k)
+            continue
+        s += str(k) +'<sub>'+str(int(d[k]))+'</sub>'
+    return s
+
+def _parse_formula(formula):
+    formula = formula.replace("@", "")
+
+    def get_sym_dict(f, factor):
+        sym_dict = collections.defaultdict(float)
+        for m in re.finditer(r"([A-Z][a-z]*)\s*([-*\.\d]*)", f):
+            el = m.group(1)
+            amt = 1
+            if m.group(2).strip() != "":
+                amt = float(m.group(2))
+            sym_dict[el] += amt * factor
+            f = f.replace(m.group(), "", 1)
+        if f.strip():
+            raise CompositionError("{} is an invalid formula!".format(f))
+        return sym_dict
+
+    m = re.search(r"\(([^\(\)]+)\)\s*([\.\d]*)", formula)
+    if m:
+        factor = 1
+        if m.group(2) != "":
+            factor = float(m.group(2))
+        unit_sym_dict = get_sym_dict(m.group(1), factor)
+        expanded_sym = "".join(["{}{}".format(el, amt)
+                                for el, amt in unit_sym_dict.items()])
+        expanded_formula = formula.replace(m.group(), expanded_sym)
+        return _parse_formula(expanded_formula)
+    return get_sym_dict(formula, 1)
+
 def mat_detail_view(request):
 
     is_cookie_ready = False
@@ -107,7 +145,8 @@ def mat_detail_view(request):
 
     mat = None
     if 'comp' in request_set and request_set['comp']:
-        mat = Entry.objects.filter(formula = request_set['comp'])
+        c = _parse_formula(request_set['comp'])
+        mat = Entry.objects.filter(formula = sub_formula(c))
 
     if 'element_set' in request_set and request_set['element_set']:
         s = request_set['element_set']
