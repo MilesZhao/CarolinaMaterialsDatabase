@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+
+<title>CMD - Search Results</title>
+
+{% endblock %}
+
+
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3  col-12">
+            <h2> Results: </h2>
+        </div>
+        <div class="col-sm-2  col-12">
+            <a class="btn btn-primary" href="{% url 'search' %}">Back to Search</a>
+        </div>
+    </div>
+    
+    <p>
+        <font size="3">
+        There are {{tot_results}} materials found.
+        </font>
+    </p>
+    <section style="width:100%;margin-bottom:10px">
+    <table data-toggle="table" data-pagination="true" class="table table-bordered text-center" id="tab-results">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">#</th>
+          <th  scope="col" >CMD-ID</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(2, 'str')">Formula</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(3, 'str')">Spacegroup</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(4, 'str')">Generic</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(5, 'num')">Formation Energy <br> [eV/atom]</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(6, 'num')"># of <br>  elements</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(7, 'num')"># of <br>  atoms</th>
+          <th data-sortable="true" scope="col" onclick="sortTable(8, 'num')">Volume <br> [&Aring;<sup>3</sup>]</th>
+          <th scope="col" > Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mat in results %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{mat.file_path}}</td>
+                <td>{{mat.formula}}</td>
+                <td>{{mat.spacegroup.symbol}}</td>
+                <td>{{mat.generic}}</td>
+                <td>{{mat.formation_energy}}</td>
+                <td>{{mat.nelement}}</td>
+                <td>{{mat.natom}}</td>
+                <td>{{mat.volume}}</td>
+                <td><a target="_blank" rel="noopener noreferrer" href="{% url 'entry:detail' mat.id %}">Click me</a></td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <ul class="pagination justify-content-center">
+      {% if results.has_previous %}
+        <li><a class="btn btn-outline-info mb-4" href="?page=1">First</a></li>
+        <li><a class="btn btn-outline-info mb-4" href="?page={{ results.previous_page_number }}">Previous</a></li>
+      {% endif %}
+
+      {% for num in results.paginator.page_range %}
+        {% if results.number == num %}
+          <li><a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a></li>
+        {% elif num > results.number|add:'-3' and num < results.number|add:'3' %}
+          <li><a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if results.has_next %}
+        <li><a class="btn btn-outline-info mb-4" href="?page={{ results.next_page_number }}">Next</a></li>
+        <li><a class="btn btn-outline-info mb-4" href="?page={{ results.paginator.num_pages }}">Last</a></li>
+      {% endif %}
+    </ul>
+</div>
+
+
+{% endblock %}

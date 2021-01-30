@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{entry.formula}}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    
+    <script src="{% static  'jmol/jsmol/JSmol.min.js' %}" ></script>
+    <!-- <script src="{% static  'entry/jmol/jsmol/js/Jmol2.js' %}" ></script> -->
+    <!-- <script >jmolInitialize("{% static 'entry/jmol/jsmol' %}");</script> -->
+    
+    <style type="text/css">
+      #jmolBox {
+        width:90vw;
+        height:90vw;
+        max-width:450px;
+        max-height:450px;
+        display:inline-block; /* needed for horiz. centering */
+      }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+      <div class="row">
+        
+        <div class="col-6"  id="jmolBox">
+            <h4>Crystal Structure Visualization</h4>
+            <script >
+                var file = "{{entry.file_path}}".concat(".cif");
+
+                var Info = {
+                    j2sPath:"{% static  'jmol/jsmol/j2s' %}",
+                    src: "{% static 'export/cifs/' %}".concat(file),
+                    color:'#E2F4F5',
+                    use: "HTML5", 
+                    width: "100%",
+                    height: "100%",
+                    readyFunction: null,
+                    debug: false,
+                    disableJ2SLoadMonitor: true,
+                    disableInitialConsole: true,
+                  };
+
+                  jma = Jmol.getApplet("myJmol", Info);
+
+            </script>
+            
+            <span class="border border-warning">
+                <a target="_blank" rel="noopener noreferrer"  href="{% static 'export/vasp/primitive_cell/'|add:entry.file_path %}" >Primitive Cell</a> or 
+                <a target="_blank" rel="noopener noreferrer"  href="{% static 'export/vasp/conventional_cell/'|add:entry.file_path %}">Conventional Standard</a> (VASP format).<br>
+            </span>
+
+        </div>
+
+        <div class="col-3">
+            <table class="table data table-bordered">
+              <h4>Material Details</h4>
+              <tbody>
+                <tr>
+                  <td>
+                    <h5>Reduced Formula</h5>
+                    <span class="value">{{entry.formula}}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <h5>Formation Energy / Atom</h5>
+                    <span class="value">{{entry.formation_energy}}</span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>
+                    <h5>Volume</h5>
+                    <span class="value">{{entry.volume}} &Aring;<sup>3</sup></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+
+        <div class="col-3">
+            <table class="table data table-bordered" id="spacegroup">
+              <h4>Space Group</h4>
+              <tbody>
+                <tr><td>
+                  <h5>Hermann Mauguin</h5>
+                  <span class="value">{{entry.spacegroup.symbol}} [{{entry.spacegroup.number}}]</span>
+                </tr></td>
+                <tr><td>
+                  <h5>Hall</h5>
+                  <span class="value">{{entry.spacegroup.hall}} </span>
+                </tr></td>
+                <tr><td>
+                  <h5>Point Group</h5>
+                  <span class="value">{{entry.spacegroup.point_group}} </span>
+                </tr></td>
+                <tr><td>
+                  <h5>Crystal System</h5>
+                  <span class="value">{{entry.spacegroup.crystal_system}}</span>
+                </tr></td>
+              </tbody>
+            </table>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

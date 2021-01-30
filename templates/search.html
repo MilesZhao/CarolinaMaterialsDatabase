@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+
+<title>CMD - Search</title>
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="display-4"> Search CMD </h1>
+    <p>Welcome to our Database of AI generated ternary and quaternary materials. Feel free to use the filters below to submit a search. ** We recommend our user to go from more general (e.g., Prototype) to more specific (e.g., Composition). ** </p>
+    <hr class="mb-4">
+    
+    
+      <h4 class="mb-3">Generic Properties</h4>
+      <form action="{% url 'results' %}" method="post">
+        {% csrf_token %}
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right">Composition</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="id_comp" name="comp" placeholder="e.g. Li6SO6" value="" >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right">Element Set</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="id_element_set" name="element_set" placeholder="e.g. Y-Al-Te-As" value="" >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right"># of Elements</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="id_num_element" name="num_element" placeholder="e.g. 3" value="" >
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right"># of Atoms</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="id_num_atom" name="num_atom" placeholder="e.g. 36" value="" >
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right">Prototype</label>
+              <div class="col-sm-6">
+                <select class="selectpicker" multiple="multiple" data-live-search="true" title="Choose One Generic" id="id_prototype" name="prototype">
+                  <option value="ABC6">ABC6</option>
+                  <option value="ABC">ABC</option>
+                  <option value="ABC8">ABC8</option>
+                  <option value="AB6C6">AB6C6</option>
+                  <option value="AB2C4">AB2C4</option>
+                  <option value="A2B3C3">A2B3C3</option>
+                  <option value="AB6C12">AB6C12</option>
+                  <option value="A3B4C6">A3B4C6</option>
+                  <option value="AB6C8">AB6C8</option>
+                  <option value="A3B3C4">A3B3C4</option>
+                  <option value="AB3C12">AB3C12</option>
+                  <option value="A3B8C12">A3B8C12</option>
+                  <option value="AB4C4">AB4C4</option>
+                  <option value="AB2C2">AB2C2</option>
+                  <option value="A3B6C8">A3B6C8</option>
+                  <option value="ABCD6">ABCD6</option>
+                  <option value="ABC6D6">ABC6D6</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right">Spacegroup Number</label>
+              <div class="col-sm-6">
+                <select class="selectpicker" multiple="multiple" data-live-search="true" title="Choose One Spacegroup" id="id_spacegroup" name="spacegroup">
+                  <option value="216">216</option>
+                  <option value="221">221</option>
+                  <option value="225">225</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <hr class="mb-4">
+        <h4 class="mb-3">DFT Calculated Properties</h4>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label text-right">Formation Energy</label>
+              <div class="col-sm-6">
+                <!-- <input type="text" class="form-control" id="id_formation_energy" name="formation_energy" placeholder="" value="" > -->
+                
+                <span id="id_formation_energy_low" class="sr-only">Formation energy low value</span>
+                <span id="id_formation_energy_high" class="sr-only">Formation energy high value</span>
+                <input type="text" class="form-control" id="id_formation_energy" name="formation_energy" data-slider-enabled="false">
+                <div>
+                    <input id="fe-enabled" name="fe_enable_or_not" type="checkbox"/> Enabled
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+<!--           <div class="col-md-6 mb-3">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">Formation Energy</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control" id="id_num_atom" name="num_atom" placeholder="" value="" >
+              </div>
+            </div>
+          </div> -->
+        </div>
+
+      
+        <hr class="mb-4">
+        <input class="btn btn-primary" type="submit" value="Search">
+        <input class="btn btn-primary btn-success clear" name="clear" type="reset" value="Reset">
+      </form>
+    
+        
+
+</div>
+
+
+
+{% endblock %}
