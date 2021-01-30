@@ -11,7 +11,36 @@ from django.views.generic import (
 )
 
 
+
 # Create your views here.
+
+def demo_view(request):
+
+    demo_id = int(request.GET["demo_id"])
+    if demo_id == 1:
+        query_id = [11500, 924, 13074, 4758, 340, 13148, 7215, 262, 12123, 12932, 9888, 419, 12084, 6633, 6314, 7156, 2343, 12692, 8198, 8056, 1324, 1927, 9762, 3432, 11988]
+        typ = 'ABC6-216'
+    elif demo_id == 2:
+        query_id = [13873, 13925, 14166, 14234, 13952, 14095, 14230, 14130, 13951, 14135, 14041, 14231, 14322, 14189, 14214, 14256, 14025, 14263, 13980, 14405, 14365, 13998, 14070, 14136, 14182]
+        typ = 'AB6C6-225'
+    elif demo_id == 3:
+        query_id = [17856, 17045, 26518, 22313, 22386, 26493, 20506, 18730, 15019, 26413, 20822, 17440, 18545, 23107, 22982, 24199, 25141, 18682, 29156, 28959, 30243, 23350, 25091, 25534, 26961]
+        typ = 'ABCD6-216'
+    elif demo_id == 4:
+        query_id = [36357, 36736, 34948, 34963, 33271, 32001, 31677, 34051, 34234, 34707, 32244, 35940, 33827, 34148, 35110, 36412, 33940, 34789, 34495, 36567, 34164, 31793, 31585, 31767, 36707]
+        typ = 'ABC6D6-216'
+    else:
+        query_id = []
+
+    mat = Entry.objects.filter(id__in = query_id)
+    if mat != None:
+        results = mat.order_by('id')
+        
+        response = render(request, 'show_demo.html', {'results': results, 'type':typ})
+    else:
+        response = render(request, 'show_demo.html', {})
+
+    return response
 
 class EntryDetailView(DetailView):
     template_name = 'entry/detail.html'
