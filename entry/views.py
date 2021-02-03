@@ -64,7 +64,12 @@ def post2dict(post):
 
 def eval_cookie(cookie):
     d = {}
+    valid_keys = {'comp', 'element_set',\
+                  'num_element', 'num_atom', 'prototype',\
+                  'spacegroup', 'fe_used', 'formation_energy'}
     for k in cookie:
+        if k not in valid_keys:
+            continue
         if k == 'csrftoken':
             continue
         if k == 'formation_energy':
@@ -127,7 +132,10 @@ def mat_detail_view(request):
     # print()
     # print((cookie_keys & post_keys))
     #print('cookie keys: ', cookie_keys)
-    if len(cookie_keys) > 1:
+    valid_keys = {'comp', 'element_set',\
+                  'num_element', 'num_atom', 'prototype',\
+                  'spacegroup', 'fe_used', 'formation_energy'}
+    if len(set(cookie_keys)&valid_keys) >= 1:
         request_set = eval_cookie(request.COOKIES)
         is_cookie_ready = True
         #print('Cookie is here')
