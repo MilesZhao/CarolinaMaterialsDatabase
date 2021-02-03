@@ -107,7 +107,7 @@ def _parse_formula(formula):
             sym_dict[el] += amt * factor
             f = f.replace(m.group(), "", 1)
         if f.strip():
-            raise CompositionError("{} is an invalid formula!".format(f))
+            return 
         return sym_dict
 
     m = re.search(r"\(([^\(\)]+)\)\s*([\.\d]*)", formula)
@@ -154,7 +154,8 @@ def mat_detail_view(request):
     mat = None
     if 'comp' in request_set and request_set['comp']:
         c = _parse_formula(request_set['comp'])
-        mat = Entry.objects.filter(formula = sub_formula(c))
+        if c:
+            mat = Entry.objects.filter(formula = sub_formula(c))
 
     if 'element_set' in request_set and request_set['element_set']:
         s = request_set['element_set']
