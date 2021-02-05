@@ -217,7 +217,7 @@ def mat_detail_view(request):
         except EmptyPage:
             results = paginator.page(paginator.num_pages)
         
-        response = render(request, 'show_page.html', {'results': results,'tot_results':mat.count()})
+        response = render(request, 'show_page.html', {'results': results,'tot_results':"{:,d}".format(mat.count())})
     else:
         response = render(request, 'show_page.html', {'tot_results':0})
     
