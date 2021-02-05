@@ -26,3 +26,5 @@ def forum_view(request, *args, **kwargs):
 def contact_view(request, *args, **kwargs):
     return render(request, 'contact.html', {})
 
+def term_view(request, *args, **kwargs):
+    return render(request, 'terms.html', {})
