@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+        <title>CMD - Contact</title>
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+	<p>Invalid query <b>{{invalid_query}}</b> in search field of <em>{{field}}</em>.</p>
+        <div class="col-sm-2  col-12">
+            <a class="btn btn-primary" href="{% url 'search' %}">Back to Search</a>
+        </div>
+</div>
+{% endblock %}

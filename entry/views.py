@@ -10,7 +10,7 @@ from django.views.generic import (
     ListView,
     DeleteView
 )
-
+from django.http import HttpResponse
 
 
 # Create your views here.
@@ -122,6 +122,13 @@ def _parse_formula(formula):
         return _parse_formula(expanded_formula)
     return get_sym_dict(formula, 1)
 
+def is_str_int(s):
+    try: 
+        int(s)
+        return True
+    except ValueError:
+        return False
+
 def mat_detail_view(request):
 
     is_cookie_ready = False
@@ -156,6 +163,8 @@ def mat_detail_view(request):
         c = _parse_formula(request_set['comp'])
         if c:
             mat = Entry.objects.filter(formula = sub_formula(c))
+        else:
+            return render(request, 'invalid.html', {'invalid_query': request_set['comp'], 'field': 'Composition'})
 
     if 'element_set' in request_set and request_set['element_set']:
         s = request_set['element_set']
@@ -166,12 +175,18 @@ def mat_detail_view(request):
             mat = mat.filter(element_list = ls)
 
     if 'num_element' in request_set and request_set['num_element']:
+        if not is_str_int(request_set['num_element']):
+            return render(request, 'invalid.html', {'invalid_query': request_set['num_element'], 'field': '# of Elements'})
+
         if mat == None:
             mat = Entry.objects.filter(nelement = request_set['num_element'])
         else:
             mat = mat.filter(nelement = request_set['num_element'])
 
     if 'num_atom' in request_set and request_set['num_atom']:
+        if not is_str_int(request_set['num_atom']):
+            return render(request, 'invalid.html', {'invalid_query': request_set['num_atom'], 'field': '# of Atoms'})
+
         if mat == None:
             mat = Entry.objects.filter(natom = request_set['num_atom'])
         else:
