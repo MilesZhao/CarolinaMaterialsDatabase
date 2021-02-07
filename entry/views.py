@@ -214,10 +214,6 @@ def mat_detail_view(request):
             mat = mat.filter(formation_energy__gte=low).\
                 filter(formation_energy__lte=high)
     
-    if mat != None:
-        print(mat.count())
-    else:
-        print(0)
 
     if mat != None:
         mat = mat.order_by('id')
