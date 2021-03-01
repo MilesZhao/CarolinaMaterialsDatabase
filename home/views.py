@@ -28,3 +28,6 @@ def contact_view(request, *args, **kwargs):
 
 def term_view(request, *args, **kwargs):
     return render(request, 'terms.html', {})
+
+def doc_view(request, *args, **kwargs):
+    return render(request, 'docs.html', {})
