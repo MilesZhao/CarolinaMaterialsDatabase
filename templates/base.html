@@ -60,25 +60,40 @@
 
 {% block footer %}
     <footer class="my-1 pt-1 text-muted text-center text-small">
-      <div class="container">
+      <div class="container-fluid">
         <hr>
         <p class="mb-1">&copy; <a href="http://mleg.cse.sc.edu/" target="_blank">2020-2021 MLEG Lab at University of South Carolina</a><br></p>
         <div class="row">
-          <div class="col-12 col-md-2"></div>
-          <div class="col-12 col-md-4">
-            Designed and Developed by Yong Zhao.<br /> Contact us by <a href="mailto:jc4302356@gmail.com" target="_blank">e-mail</a>.
+          <div class="col-12 col-xl-2">
+            <a href="https://clustrmaps.com/site/1bgn9"  title="Visit tracker"  target="_blank"><img src="//www.clustrmaps.com/map_v2.png?d=kEVjOlkYNPZ3K27jK_IE7l76FiMlJmCIx5QJWt61Cmg&cl=ffffff" /></a>
           </div>
-          <div class="col-12 col-md-4">
-            If you are using any results from this website,<br />
-            please reference this work as shown <a href="{% url 'docs' %}">here</a>
+          <div class="col-12 col-xl-8">
+            <div class="row">
+              <div class="col-12 col-md-1">
+                
+              </div>
+              <div class="col-12 col-md-5">
+                Designed and Developed by Yong Zhao.<br /> Contact us by <a href="mailto:jc4302356@gmail.com" target="_blank">e-mail</a>.
+              </div>
+              <div class="col-12 col-md-5">
+                If you are using any results from this website,<br />
+                please reference this work as shown <a href="{% url 'docs' %}">here</a>
+              </div>
+              <div class="col-12 col-md-1">
+                
+              </div>
+            </div>
+          
+            <div>
+              <a href="{% url 'terms' %}">Terms of Use</a><br />
+              <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="{% static 'images/cc.png' %}" /></a><br />The data in CMD is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
+            </div>
           </div>
-          <div class="col-12 col-md-2"></div>
+          <div class="col-12 col-xl-2">
+
+          </div>
         </div>
-      
-        <div>
-          <a href="{% url 'terms' %}">Terms of Use</a><br />
-          <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="{% static 'images/cc.png' %}" /></a><br />The data in CMD is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
-        </div>
+            
       </div>
     </footer>
 {% endblock %}
