@@ -3,13 +3,13 @@
 {% block body %}
 <div class="container">
    <div class="py-3 text-center">
-    <p class="lead">Welcome to Carolina Materials Database created in <a href="http://mleg.cse.sc.edu/" target="_blank">Jianjun Hu's</a> and <a href="https://hu-lab.mystrikingly.com/" target="_blank">Ming Hu's</a> groups at University of South Carolina. A freely, globally accessible database of  <span style="color:red"><b>36,847</b></span> inorganic material compounds with over <span style="color:blue"><b>70,000</b></span> calculated properties, and growing.</p>
+    <p class="lead">Welcome to Carolina Materials Database created in <a href="http://mleg.cse.sc.edu/" target="_blank">Jianjun Hu's</a> and <a href="https://hu-lab.mystrikingly.com/" target="_blank">Ming Hu's</a> groups at University of South Carolina. A freely, globally accessible database of  <span style="color:red"><b>38,716</b></span> inorganic material compounds with over <span style="color:blue"><b>80,000</b></span> calculated properties, and growing.</p>
   </div>
   {% load static %}
   <div class="text-center">
     <img src="{% static 'images/cover-cmd.png' %}" class="rounded" alt="..." style="width:75%">
   </div>
-  <div class="row">
+<!--   <div class="row">
         <div class="col-md-3 py-2">
             <div class="card h-100">
                 <div class="text-center">
@@ -47,8 +47,8 @@
             </div>
         </div>
   </div>
-  <br>
-  <div class="row d-flex justify-content-center">
+  <br> -->
+<!--   <div class="row d-flex justify-content-center">
         <div class="col-md-3 py-2">
             <div class="card h-100">
                 <div class="text-center">
@@ -74,7 +74,7 @@
             </div>
         </div>
   </div>
-  <br>
+  <br> -->
   <div class="row">
         <div class="col-md-2 py-2">
 
@@ -83,8 +83,10 @@
         <div class="col-md-4  py-2">
             <div class="card h-100">
                 <div class="text-center">
-                    <h3 class="my-3"><span style="color:blue">14,433</span></h2>
+                    <h3 class="my-3"><span style="color:blue">16,302</span></h2>
                     <h4 class="my-3">Ternary compounds</h4>
+                    <h5>(186 stable compounds)</h4>
+                    <a href="{% url 'demo'  %}?demo_id=1">Demo</a>
                 </div>
             </div>
         </div>
@@ -93,6 +95,8 @@
                 <div class="text-center">
                     <h3 class="my-3"><span style="color:blue">22,414</span></h2>
                     <h4 class="my-3">Quaternary compounds</h4>
+                    <h5>(323 stable compounds)</h4>
+                    <a href="{% url 'demo'  %}?demo_id=2">Demo</a>
                 </div>
             </div>
         </div>
